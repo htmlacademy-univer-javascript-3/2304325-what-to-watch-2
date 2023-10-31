@@ -1,5 +1,3 @@
-import React from 'react';
-
 const FilmPage = () => (
   <>
     <section className="film-card film-card--full">

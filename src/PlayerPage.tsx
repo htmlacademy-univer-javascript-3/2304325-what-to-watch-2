@@ -1,5 +1,3 @@
-import React from 'react';
-
 const PlayerPage = () => (
   <div className="player">
     <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
