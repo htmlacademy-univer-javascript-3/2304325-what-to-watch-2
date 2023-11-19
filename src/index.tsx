@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { mockDataFilm } from './mocks/films';
 
 const mockFilmData = {
   name: 'The Grand Budapest Hotel',
@@ -14,6 +15,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App {...mockFilmData}/>
+    <App {...mockFilmData} films={mockDataFilm}/>
   </React.StrictMode>
 );
