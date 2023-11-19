@@ -1,12 +1,14 @@
-import Card from './Card';
+import CardList from './card-list';
+import { IMockDataFilms } from './types/films';
 
 type Props = {
   name: string;
   genre: string;
   date: string;
+  films: IMockDataFilms[];
 }
 
-const MainPage = ({date, genre, name} : Props) => (
+const MainPage = ({date, genre, name, films} : Props) => (
   <>
     <section className="film-card">
       <div className="film-card__bg">
@@ -106,15 +108,7 @@ const MainPage = ({date, genre, name} : Props) => (
         </ul>
 
         <div className="catalog__films-list">
-          <Card src='img/fantastic-beasts-the-crimes-of-grindelwald.jpg'/>
-          <Card src='img/fantastic-beasts-the-crimes-of-grindelwald.jpg'/>
-          <Card src='img/fantastic-beasts-the-crimes-of-grindelwald.jpg'/>
-          <Card src='img/fantastic-beasts-the-crimes-of-grindelwald.jpg'/>
-          <Card src='img/fantastic-beasts-the-crimes-of-grindelwald.jpg'/>
-          <Card src='img/fantastic-beasts-the-crimes-of-grindelwald.jpg'/>
-          <Card src='img/fantastic-beasts-the-crimes-of-grindelwald.jpg'/>
-          <Card src='img/fantastic-beasts-the-crimes-of-grindelwald.jpg'/>
-
+          <CardList films={films}/>
         </div>
 
         <div className="catalog__more">
