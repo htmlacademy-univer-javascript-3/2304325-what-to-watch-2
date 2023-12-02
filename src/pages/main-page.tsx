@@ -1,14 +1,13 @@
-import CardList from './card-list';
-import { IMockDataFilms } from './types/films';
+import { CardList } from '../card-list';
+import { Film, FilmCard } from '../types/types';
 
 type Props = {
-  name: string;
-  genre: string;
-  date: string;
-  films: IMockDataFilms[];
-}
+  // eslint-disable-next-line react/no-unused-prop-types
+  filmCardData: Film;
+  catalogFilmCards: FilmCard[];
+};
 
-const MainPage = ({date, genre, name, films} : Props) => (
+const MainPage = ({filmCardData, catalogFilmCards} : Props) => (
   <>
     <section className="film-card">
       <div className="film-card__bg">
@@ -45,10 +44,10 @@ const MainPage = ({date, genre, name, films} : Props) => (
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">{name}</h2>
+            <h2 className="film-card__title">{filmCardData.title}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">{genre}</span>
-              <span className="film-card__year">{date}</span>
+              <span className="film-card__genre">{filmCardData.genre}</span>
+              <span className="film-card__year">{filmCardData.year}</span>
             </p>
 
             <div className="film-card__buttons">
@@ -107,9 +106,7 @@ const MainPage = ({date, genre, name, films} : Props) => (
           </li>
         </ul>
 
-        <div className="catalog__films-list">
-          <CardList films={films}/>
-        </div>
+        <CardList films={catalogFilmCards}/>
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>

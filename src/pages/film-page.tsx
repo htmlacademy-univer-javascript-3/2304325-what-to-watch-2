@@ -1,11 +1,13 @@
 import { Link, useParams } from 'react-router-dom';
-import { IMockDataFilms } from './types/films';
+import { Film, FilmCard } from '../types/types';
 
-type Props = {
-  films: IMockDataFilms[];
+type MoviePageType = Film & {
+  // eslint-disable-next-line react/no-unused-prop-types
+  moreFilms: FilmCard[];
 }
 
-const FilmPage = ({films}: Props) => {
+const FilmPage = (props: MoviePageType) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = useParams();
   return (
     <>
@@ -40,10 +42,10 @@ const FilmPage = ({films}: Props) => {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{props.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{props.genre}</span>
+                <span className="film-card__year">{props.year}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -60,7 +62,7 @@ const FilmPage = ({films}: Props) => {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`/films/${films[Number(id)].id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to='review' className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>

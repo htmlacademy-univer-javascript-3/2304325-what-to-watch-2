@@ -1,16 +1,19 @@
 import { useParams } from 'react-router-dom';
-import { IMockDataFilms } from './types/films';
 
 type Props = {
-  films: IMockDataFilms[];
+  src: string;
+  poster: string;
+  time: string;
+  name: string;
 }
 
-const PlayerPage = ({films} : Props) => {
+const PlayerPage = (props : Props) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = useParams();
 
   return (
     <div className="player">
-      <video src={films[Number(id)].filmUrl} className="player__video" poster={films[Number(id)].preview}></video>
+      <video src={props.src} className="player__video" poster={props.poster}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -20,7 +23,7 @@ const PlayerPage = ({films} : Props) => {
             <progress className="player__progress" value="30" max="100"></progress>
             <div className="player__toggler" style={{left: ' 30% ' }}>Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{props.time}</div>
         </div>
 
         <div className="player__controls-row">
@@ -30,7 +33,7 @@ const PlayerPage = ({films} : Props) => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{props.name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">

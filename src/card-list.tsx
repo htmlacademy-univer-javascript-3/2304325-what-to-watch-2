@@ -1,24 +1,22 @@
-import { useState } from 'react';
+import {useState} from 'react';
+import { FilmCard } from './types/types';
 import Card from './card-film';
-import { IMockDataFilms } from './types/films';
 
-type Props = {
-  films: IMockDataFilms[];
-}
-
-const CardList = ({films} : Props) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [activeComponent, setActiveComponent] = useState<IMockDataFilms | null>(null);
-
-  const handleMouseover = (el: IMockDataFilms) => {
-    setActiveComponent(el);
-  };
-
+export const CardList = (props: {films: FilmCard[]}) => {
+  const [activeFilm, setActiveCard] = useState<FilmCard | null>(null);
   return (
-    <>
-      {films.map((item) => <Card key={item.id} film={item} handleMouseover={handleMouseover} />)}
-    </>
+    <div className="catalog__films-list">
+      {props.films.map((film) =>
+        (
+          <Card
+            isActive={activeFilm?.id === film.id}
+            key={film.id} image={film.image}
+            title={film.title} id={film.id}
+            onMouseOver={() => setActiveCard(film)}
+            onMouseOut={() => setActiveCard(null)}
+          />
+        )
+      )}
+    </div>
   );
 };
-
-export default CardList;

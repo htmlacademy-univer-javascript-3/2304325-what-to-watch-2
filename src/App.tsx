@@ -1,27 +1,20 @@
-import MainPage from './main-page';
+import MainPage from './pages/main-page';
 import {
   BrowserRouter,
   Routes,
   Route,
 } from 'react-router-dom';
-import SignInPAge from './SignInPage';
-import MyListPage from './my-list-page';
-import FilmPage from './film-page';
-import AddReviewPage from './add-review-page';
-import PlayerPage from './player-page';
-import NotFoundPage from './not-found-page';
+import SignInPAge from './pages/SignInPage';
+import MyListPage from './pages/my-list-page';
+import FilmPage from './pages/film-page';
+import AddReviewPage from './pages/add-review-page';
+import PlayerPage from './pages/player-page';
+import NotFoundPage from './pages/not-found-page';
 import PrivateRoute from './components/private-route';
-import { IMockDataFilms } from './types/films';
+import { CommonProps } from './types/types';
 
 
-type Props = {
-  name: string;
-  genre: string;
-  date: string;
-  films: IMockDataFilms[];
-}
-
-const App = (props : Props) =>
+const App = (props : CommonProps) =>
   // const nav = useNavigate();
   // console.log(nav);
   (
@@ -37,21 +30,21 @@ const App = (props : Props) =>
         />
         <Route path='/mylist' element={
           <PrivateRoute>
-            <MyListPage favoriteFilms={props.films}/>
+            <MyListPage myListArray={props.myListArray}/>
           </PrivateRoute>
         }
         />
         <Route
           path='/films/:id'
-          element={<FilmPage films={props.films} />}
+          element={<FilmPage {...props.filmCardData} moreFilms={props.moreFilms} />}
         />
         <Route
           path='/films/:id/review'
-          element={<AddReviewPage films={props.films}/>}
+          element={<AddReviewPage {...props.filmCardData}/>}
         />
         <Route
-          path='/player'
-          element={<PlayerPage films={props.films}/>}
+          path='/player/:id'
+          element={<PlayerPage {...props.playerData}/>}
         />
         <Route
           path='*'

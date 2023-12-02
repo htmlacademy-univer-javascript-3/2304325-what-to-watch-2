@@ -1,52 +1,80 @@
-import { IMockDataFilms } from '../types/films';
+import { Film, FilmCard } from '../types/types';
 
-export const mockDataFilm: IMockDataFilms[] = [
-  {
-    id: 1,
-    name: 'Фильм 1',
-    preview: 'https://avatars.mds.yandex.net/get-kinopoisk-post-thumb/1520341/973833b9148bf54ad05fb4615751bbc3/460x270',
-    filmUrl: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+export const filmCardData: Film = {
+  id: 20,
+  bgImage:
+    'img/bg-the-grand-budapest-hotel.jpg',
+  posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
+  title: 'The Grand Budapest Hotel',
+  genre: 'Drama',
+  year: 2014
+};
+
+export const catalogFilmCards: FilmCard[] = [
+  {id: 0, image: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
+    title:'Fantastic Beasts: The Crimes of Grindelwald'
   },
-  {
-    id: 2,
-    name: 'Фильм 2',
-    preview: 'https://avatars.mds.yandex.net/get-kinopoisk-post-thumb/1520341/973833b9148bf54ad05fb4615751bbc3/460x270',
-    filmUrl: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+  {id: 1, image: 'img/bohemian-rhapsody.jpg',
+    title:'Bohemian Rhapsody'
   },
-  {
-    id: 3,
-    name: 'Фильм 3',
-    preview: 'https://avatars.mds.yandex.net/get-kinopoisk-post-thumb/1520341/973833b9148bf54ad05fb4615751bbc3/460x270',
-    filmUrl: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+  {id: 2, image: 'img/macbeth.jpg',
+    title: 'Macbeth'
   },
-  {
-    id: 4,
-    name: 'Фильм 4',
-    preview: 'https://avatars.mds.yandex.net/get-kinopoisk-post-thumb/1520341/973833b9148bf54ad05fb4615751bbc3/460x270',
-    filmUrl: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
+  {id: 3, image: 'img/aviator.jpg',
+    title: 'Aviator'
   },
-  {
-    id: 5,
-    name: 'Фильм 5',
-    preview: 'https://avatars.mds.yandex.net/get-kinopoisk-post-thumb/1520341/973833b9148bf54ad05fb4615751bbc3/460x270',
-    filmUrl: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
+  {id: 4, image: 'img/we-need-to-talk-about-kevin.jpg',
+    title: 'We need to talk about Kevin'
   },
-  {
-    id: 6,
-    name: 'Фильм 6',
-    preview: 'https://avatars.mds.yandex.net/get-kinopoisk-post-thumb/1520341/973833b9148bf54ad05fb4615751bbc3/460x270',
-    filmUrl: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
+  {id: 5, image: 'img/what-we-do-in-the-shadows.jpg',
+    title: 'What We Do in the Shadows'
   },
-  {
-    id: 7,
-    name: 'Фильм 7',
-    preview: 'https://avatars.mds.yandex.net/get-kinopoisk-post-thumb/1520341/973833b9148bf54ad05fb4615751bbc3/460x270',
-    filmUrl: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
+  {id: 6, image:'img/revenant.jpg' ,
+    title: 'Revenant'
   },
-  {
-    id: 8,
-    name: 'Фильм 8',
-    preview: 'https://avatars.mds.yandex.net/get-kinopoisk-post-thumb/1520341/973833b9148bf54ad05fb4615751bbc3/460x270',
-    filmUrl: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'
-  }
+  {id: 7, image: 'img/johnny-english.jpg',
+    title: 'Johnny English'
+  },
+  {id: 8, image: 'img/shutter-island.jpg',
+    title: 'Shutter Island'
+  },
+  {id: 9, image: 'img/pulp-fiction.jpg',
+    title: 'Pulp Fiction'
+  },
+  {id: 10, image: 'img/no-country-for-old-men.jpg',
+    title: 'No Country for Old Men'
+  },
+  {id: 11, image: 'img/snatch.jpg',
+    title:'Snatch'
+  },
+  {id: 12, image: 'img/moonrise-kingdom.jpg',
+    title:'Moonrise Kingdom'
+  },
+  {id: 13, image: 'img/seven-years-in-tibet.jpg',
+    title: 'Seven Years in Tibet'
+  },
+  {id:14, image: 'img/midnight-special.jpg',
+    title: 'Midnight Special'
+  },
+  {id:15, image: 'img/war-of-the-worlds.jpg',
+    title: 'War of the Worlds'
+  },
+  {id: 16,image: 'img/dardjeeling-limited.jpg',
+    title: 'Dardjeeling Limited'
+  },
+  {id: 17, image: 'img/orlando.jpg',
+    title: 'Orlando'
+  },
+  {id: 18, image: 'img/mindhunter.jpg',
+    title: 'Mindhunter'
+  },
+  {id: 19, image: 'img/midnight-special.jpg',
+    title: 'Midnight Special'
+  },
 ];
+
+export const myListArray = catalogFilmCards.slice(0,9);
+
+export const moreFilms = catalogFilmCards.slice(0,4);
+
+export const VIDEO = 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4';
