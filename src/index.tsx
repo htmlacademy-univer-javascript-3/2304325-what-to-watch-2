@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { mockDataFilm } from './mocks/films';
+import { catalogFilmCards, filmCardData, moreFilms, myListArray } from './mocks/films';
+import { playerData } from './mocks/player';
 
-const mockFilmData = {
-  name: 'The Grand Budapest Hotel',
-  genre: 'Drama',
-  date: '2014'
+const props = {
+  catalogFilmCards,
+  filmCardData,
+  myListArray,
+  moreFilms,
+  playerData
 };
 
 const root = ReactDOM.createRoot(
@@ -15,6 +18,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App {...mockFilmData} films={mockDataFilm}/>
+    <App {...props} />
   </React.StrictMode>
 );

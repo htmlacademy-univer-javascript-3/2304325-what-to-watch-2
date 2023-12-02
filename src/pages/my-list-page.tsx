@@ -1,11 +1,11 @@
-import CardList from './card-list';
-import { IMockDataFilms } from './types/films';
+import {CardList} from '../card-list';
+import { FilmCard } from '../types/types';
 
 type Props = {
-  favoriteFilms: IMockDataFilms[];
+  myListArray: FilmCard[];
 }
 
-const MyListPage = ({favoriteFilms}: Props) => (
+const MyListPage = ({myListArray}: Props)=> (
   <div className="user-page">
     <header className="page-header user-page__head">
       <div className="logo">
@@ -16,7 +16,7 @@ const MyListPage = ({favoriteFilms}: Props) => (
         </a>
       </div>
 
-      <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favoriteFilms.length}</span></h1>
+      <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{myListArray.length}</span></h1>
       <ul className="user-block">
         <li className="user-block__item">
           <div className="user-block__avatar">
@@ -33,7 +33,7 @@ const MyListPage = ({favoriteFilms}: Props) => (
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
       <div className="catalog__films-list">
-        <CardList films={favoriteFilms} />
+        <CardList films={myListArray} />
       </div>
     </section>
 

@@ -1,18 +1,17 @@
 import { useParams } from 'react-router-dom';
-import { IMockDataFilms } from './types/films';
-import AddReviewForm from './components/add-review-form';
+import { Film } from '../types/types';
+import AddReviewForm from '../components/add-review-form';
 
-type Props = {
-  films: IMockDataFilms[];
-}
+type Props = Film
 
-const AddReviewPage = ({films}: Props) => {
+const AddReviewPage = (props: Props) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = useParams();
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={films[Number(id)].preview} alt={films[Number(id)].name} />
+          <img src={props.bgImage} alt={props.title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -29,7 +28,7 @@ const AddReviewPage = ({films}: Props) => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">{films[Number(id)].name}</a>
+                <a href="film-page.html" className="breadcrumbs__link">{props.title}</a>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -50,7 +49,7 @@ const AddReviewPage = ({films}: Props) => {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={films[Number(id)].preview} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={props.bgImage} alt={props.title} width="218" height="327" />
         </div>
       </div>
 

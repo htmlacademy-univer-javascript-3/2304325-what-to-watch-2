@@ -1,18 +1,28 @@
 import { Link } from 'react-router-dom';
-import { IMockDataFilms } from './types/films';
+import { Preview } from './components/preview';
+import { FilmCard } from './types/types';
 
-type Props = {
-  film: IMockDataFilms;
-  handleMouseover: (el: IMockDataFilms) => void;
+type Props = FilmCard & {
+  onMouseOver: (film: FilmCard) => void;
+  onMouseOut: (film: FilmCard) => void;
+  isActive: boolean;
 }
-
-const Card = ({film, handleMouseover} : Props) => (
-  <article className="small-film-card catalog__films-card" onMouseOver={() => handleMouseover(film)}>
+const Card = (props : Props) => (
+  <article
+    className="small-film-card catalog__films-card"
+    onMouseOver={() => props.onMouseOver(props)}
+    onMouseOut={() => props.onMouseOut(props)}
+  >
     <div className="small-film-card__image">
-      <img src={film.preview} alt={film.name} width="280" height="175" />
+      <Preview
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+        poster={props.image}
+        isActive={props.isActive}
+        name={props.title}
+      />
     </div>
     <h3 className="small-film-card__title">
-      <Link to={`/films/${film.id}`} className="small-film-card__link">{film.name}</Link>
+      <Link className="small-film-card__link" to={`/films/${props.id}`}>{props.title}</Link>
     </h3>
   </article>
 );
