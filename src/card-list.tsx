@@ -10,10 +10,12 @@ export const CardList = (props: {films: FilmCard[]}) => {
         (
           <Card
             isActive={activeFilm?.id === film.id}
-            key={film.id} image={film.image}
+            key={film.id} bgImage={film.bgImage}
             title={film.title} id={film.id}
             onMouseOver={() => setActiveCard(film)}
             onMouseOut={() => setActiveCard(null)}
+            previewImage={film.previewImage}
+            previewVideoLink={film.previewVideoLink}
           />
         )
       )}
