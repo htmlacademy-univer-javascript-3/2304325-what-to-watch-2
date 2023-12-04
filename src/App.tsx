@@ -30,13 +30,13 @@ const App = (props : CommonProps) =>
         />
         <Route path='/mylist' element={
           <PrivateRoute>
-            <MyListPage myListArray={props.myListArray}/>
+            <MyListPage myListArray={props.catalogFilmCards}/>
           </PrivateRoute>
         }
         />
         <Route
           path='/films/:id'
-          element={<FilmPage {...props.filmCardData} moreFilms={props.moreFilms} />}
+          element={<FilmPage {...props.filmCardData} tabData={props.tabData} />}
         />
         <Route
           path='/films/:id/review'

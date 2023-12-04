@@ -1,14 +1,28 @@
-import { Link, useParams } from 'react-router-dom';
-import { Film, FilmCard } from '../types/types';
+import { Tabs } from '../components/tabs';
+import { useState } from 'react';
+import { catalogFilmCards } from '../mocks/films';
+import { CardList } from '../card-list';
+import { Details } from '../components/details-block';
+import { Reviews } from '../components/reviews-block';
+import { Overview } from '../components/overview-block';
+import { TabProps } from '../types/tabs';
+import { Link } from 'react-router-dom';
+import { FilmCard } from '../types/types';
 
-type MoviePageType = Film & {
-  // eslint-disable-next-line react/no-unused-prop-types
-  moreFilms: FilmCard[];
-}
 
-const FilmPage = (props: MoviePageType) => {
+const FilmPage = (props: FilmCard & {tabData: TabProps}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id } = useParams();
+  // const { id } = useParams();
+
+  const [activeTab, setActiveTab] = useState(0);
+  const moreFilms = catalogFilmCards.filter((film)=> film.genre === props.genre).slice(0,4);
+  const getContentByType = () => {
+    switch (activeTab) {
+      case 1: return <Details {...props.tabData.details}/>;
+      case 2: return <Reviews reviews={props.tabData.reviews}/>;
+      default: return <Overview {...props.tabData.overview}/>;
+    }
+  };
   return (
     <>
       <section className="film-card film-card--full">
@@ -75,19 +89,8 @@ const FilmPage = (props: MoviePageType) => {
             </div>
 
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+              <Tabs activeTab={activeTab} setActiveTab={setActiveTab}/>
+              { getContentByType() }
 
               <div className="film-rating">
                 <div className="film-rating__score">8,9</div>
@@ -115,41 +118,7 @@ const FilmPage = (props: MoviePageType) => {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
-              </h3>
-            </article>
+            <CardList films={moreFilms}/>
           </div>
         </section>
 

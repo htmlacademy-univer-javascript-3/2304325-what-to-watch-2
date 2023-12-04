@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { Film } from '../types/types';
 import AddReviewForm from '../components/add-review-form';
+import { FilmCard } from '../types/types';
 
-type Props = Film
+type Props = FilmCard
 
 const AddReviewPage = (props: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

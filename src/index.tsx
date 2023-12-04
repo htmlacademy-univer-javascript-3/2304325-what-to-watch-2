@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { catalogFilmCards, filmCardData, moreFilms, myListArray } from './mocks/films';
+import { catalogFilmCards, filmCardData } from './mocks/films';
 import { playerData } from './mocks/player';
+import { tabData } from './mocks/tabProps';
 
 const props = {
   catalogFilmCards,
   filmCardData,
-  myListArray,
-  moreFilms,
-  playerData
+  playerData,
+  tabData
 };
 
 const root = ReactDOM.createRoot(
