@@ -1,9 +1,9 @@
 import { CardList } from '../card-list';
-import { Film, FilmCard } from '../types/types';
+import { FilmCard } from '../types/types';
 
 type Props = {
   // eslint-disable-next-line react/no-unused-prop-types
-  filmCardData: Film;
+  filmCardData: FilmCard;
   catalogFilmCards: FilmCard[];
 };
 

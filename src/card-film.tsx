@@ -16,7 +16,7 @@ const Card = (props : Props) => (
     <div className="small-film-card__image">
       <Preview
         src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-        poster={props.image}
+        poster={props.previewImage}
         isActive={props.isActive}
         name={props.title}
       />
