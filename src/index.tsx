@@ -4,6 +4,8 @@ import App from './App';
 import { catalogFilmCards, filmCardData } from './mocks/films';
 import { playerData } from './mocks/player';
 import { tabData } from './mocks/tabProps';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const props = {
   catalogFilmCards,
@@ -18,6 +20,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App {...props} />
+    <Provider store={store}>
+      <App {...props} />
+    </Provider>
   </React.StrictMode>
 );

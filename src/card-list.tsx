@@ -1,12 +1,15 @@
 import {useState} from 'react';
 import { FilmCard } from './types/types';
 import Card from './card-film';
+import { useAppSelector } from './hooks/useAppSelector';
 
-export const CardList = (props: {films: FilmCard[]}) => {
+export const CardList = () => {
   const [activeFilm, setActiveCard] = useState<FilmCard | null>(null);
+  const films = useAppSelector((state) => state.films);
+
   return (
     <div className="catalog__films-list">
-      {props.films.map((film) =>
+      {films.map((film) =>
         (
           <Card
             isActive={activeFilm?.id === film.id}
@@ -16,6 +19,7 @@ export const CardList = (props: {films: FilmCard[]}) => {
             onMouseOut={() => setActiveCard(null)}
             previewImage={film.previewImage}
             previewVideoLink={film.previewVideoLink}
+            genre={film.genre}
           />
         )
       )}
