@@ -12,6 +12,7 @@ import PlayerPage from './pages/player-page';
 import NotFoundPage from './pages/not-found-page';
 import PrivateRoute from './components/private-route';
 import { CommonProps } from './types/types';
+import { AppRoute } from './const/const';
 
 
 const App = (props : CommonProps) =>
@@ -21,29 +22,29 @@ const App = (props : CommonProps) =>
     <BrowserRouter>
       <Routes>
         <Route
-          path='/'
+          path={AppRoute.Main}
           element={<MainPage {...props}/>}
         />
         <Route
-          path='/login'
+          path={AppRoute.SignIn}
           element={<SignInPAge/>}
         />
-        <Route path='/mylist' element={
+        <Route path={AppRoute.MyList} element={
           <PrivateRoute>
             <MyListPage myListArray={props.catalogFilmCards}/>
           </PrivateRoute>
         }
         />
         <Route
-          path='/films/:id'
+          path={AppRoute.Film}
           element={<FilmPage {...props.filmCardData} tabData={props.tabData} />}
         />
         <Route
-          path='/films/:id/review'
+          path={AppRoute.AddReview}
           element={<AddReviewPage {...props.filmCardData}/>}
         />
         <Route
-          path='/player/:id'
+          path={AppRoute.Player}
           element={<PlayerPage {...props.playerData}/>}
         />
         <Route
