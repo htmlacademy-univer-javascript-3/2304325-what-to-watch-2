@@ -5,7 +5,7 @@ import { useAppSelector } from './hooks/useAppSelector';
 
 export const CardList = () => {
   const [activeFilm, setActiveCard] = useState<FilmCard | null>(null);
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector((state) => state.currentFilms);
 
   return (
     <div className="catalog__films-list">
