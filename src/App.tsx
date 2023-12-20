@@ -28,7 +28,7 @@ const App = (props : CommonProps) =>(
       />
       <Route path={AppRoute.MyList} element={
         <PrivateRoute>
-          <MyListPage myListArray={props.catalogFilmCards}/>
+          <MyListPage/>
         </PrivateRoute>
       }
       />
