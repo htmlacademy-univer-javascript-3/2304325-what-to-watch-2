@@ -6,6 +6,7 @@ import { playerData } from './mocks/player';
 import { tabData } from './mocks/tabProps';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { fetchFilmsAction } from './store/api-action';
 
 const props = {
   catalogFilmCards,
@@ -17,6 +18,8 @@ const props = {
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch(fetchFilmsAction());
 
 root.render(
   <React.StrictMode>

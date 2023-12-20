@@ -17,6 +17,7 @@ type Props = {
 const MainPage = ({filmCardData} : Props) => {
   const counter = useAppSelector((state) => state.counter);
   const allFilms = useAppSelector((state) => state.currentFilmsLength);
+  const currentFilms = useAppSelector((state) => state.currentFilms);
 
 
   return (
@@ -38,7 +39,7 @@ const MainPage = ({filmCardData} : Props) => {
 
           <GenreList/>
 
-          <CardList />
+          <CardList films={currentFilms}/>
 
           {counter < allFilms && <ShowMore/>}
 

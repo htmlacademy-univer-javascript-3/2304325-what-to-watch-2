@@ -1,6 +1,5 @@
 import { Tabs } from '../components/tabs';
 import { useState } from 'react';
-import { catalogFilmCards } from '../mocks/films';
 import { CardList } from '../card-list';
 import { Details } from '../components/details-block';
 import { Reviews } from '../components/reviews-block';
@@ -10,14 +9,16 @@ import { Link } from 'react-router-dom';
 import { FilmCard } from '../types/types';
 import Footer from '../components/footer';
 import Header from '../components/header';
+import { useAppSelector } from '../hooks/useAppSelector';
 
 
 const FilmPage = (props: FilmCard & {tabData: TabProps}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const { id } = useParams();
+  const films = useAppSelector((state) => state.currentFilms);
 
   const [activeTab, setActiveTab] = useState(0);
-  const moreFilms = catalogFilmCards.filter((film)=> film.genre === props.genre).slice(0,4);
+  const moreFilms = films.filter((film)=> film.genre === props.genre).slice(0,4);
   const getContentByType = () => {
     switch (activeTab) {
       case 1: return <Details {...props.tabData.details}/>;
