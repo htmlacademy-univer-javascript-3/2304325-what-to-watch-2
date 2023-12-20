@@ -1,23 +1,32 @@
 import {useState} from 'react';
-import { FilmCard } from './types/types';
+import { FilmPreviewData, FilmsPreviewData } from './types/types';
 import Card from './card-film';
 import { useAppSelector } from './hooks/useAppSelector';
+import Spinner from './components/spinner';
 
-export const CardList = () => {
-  const [activeFilm, setActiveCard] = useState<FilmCard | null>(null);
-  const films = useAppSelector((state) => state.currentFilms);
+type Props = {
+  films: FilmsPreviewData;
+}
 
+export const CardList = ({films} : Props) => {
+  const [activeFilm, setActiveCard] = useState<FilmPreviewData | null>(null);
+  const isLoading = useAppSelector((state) => state.isFilmsDataLoading);
+
+  if(isLoading) {
+    return (
+      <Spinner/>
+    );
+  }
   return (
     <div className="catalog__films-list">
       {films.map((film) =>
         (
           <Card
             isActive={activeFilm?.id === film.id}
-            key={film.id} bgImage={film.bgImage}
-            title={film.title} id={film.id}
+            key={film.id} previewImage={film.previewImage}
+            name={film.name} id={film.id}
             onMouseOver={() => setActiveCard(film)}
             onMouseOut={() => setActiveCard(null)}
-            previewImage={film.previewImage}
             previewVideoLink={film.previewVideoLink}
             genre={film.genre}
           />

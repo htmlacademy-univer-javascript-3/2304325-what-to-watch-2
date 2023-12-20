@@ -15,43 +15,40 @@ import { CommonProps } from './types/types';
 import { AppRoute } from './const/const';
 
 
-const App = (props : CommonProps) =>
-  // const nav = useNavigate();
-  // console.log(nav);
-  (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.Main}
-          element={<MainPage {...props}/>}
-        />
-        <Route
-          path={AppRoute.SignIn}
-          element={<SignInPAge/>}
-        />
-        <Route path={AppRoute.MyList} element={
-          <PrivateRoute>
-            <MyListPage myListArray={props.catalogFilmCards}/>
-          </PrivateRoute>
-        }
-        />
-        <Route
-          path={AppRoute.Film}
-          element={<FilmPage {...props.filmCardData} tabData={props.tabData} />}
-        />
-        <Route
-          path={AppRoute.AddReview}
-          element={<AddReviewPage {...props.filmCardData}/>}
-        />
-        <Route
-          path={AppRoute.Player}
-          element={<PlayerPage {...props.playerData}/>}
-        />
-        <Route
-          path='*'
-          element={<NotFoundPage/>}
-        />
-      </Routes>
-    </BrowserRouter>
-  );
+const App = (props : CommonProps) =>(
+  <BrowserRouter>
+    <Routes>
+      <Route
+        path={AppRoute.Main}
+        element={<MainPage {...props}/>}
+      />
+      <Route
+        path={AppRoute.SignIn}
+        element={<SignInPAge/>}
+      />
+      <Route path={AppRoute.MyList} element={
+        <PrivateRoute>
+          <MyListPage myListArray={props.catalogFilmCards}/>
+        </PrivateRoute>
+      }
+      />
+      <Route
+        path={AppRoute.Film}
+        element={<FilmPage {...props.filmCardData} tabData={props.tabData} />}
+      />
+      <Route
+        path={AppRoute.AddReview}
+        element={<AddReviewPage {...props.filmCardData}/>}
+      />
+      <Route
+        path={AppRoute.Player}
+        element={<PlayerPage {...props.playerData}/>}
+      />
+      <Route
+        path='*'
+        element={<NotFoundPage/>}
+      />
+    </Routes>
+  </BrowserRouter>
+);
 export default App;
