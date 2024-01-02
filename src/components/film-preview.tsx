@@ -1,28 +1,28 @@
-import { FilmCard } from '../types/types';
+import { FilmData } from '../types/film-data';
 import MyListBtn from './my-list-btn';
 
 
-type FilmPreviewProps = {
-  film: FilmCard;
+type Props = {
+  film: FilmData;
 }
 
-const FilmPreview = ({film}: FilmPreviewProps): JSX.Element => (
+const FilmPreview = ({film}: Props): JSX.Element => (
   <div className="film-card__wrap">
     <div className="film-card__info">
       <div className="film-card__poster">
         <img
-          src={film.bgImage}
-          alt={film.title}
+          src={film.backgroundImage}
+          alt={film.name}
           width="218"
           height="327"
         />
       </div>
 
       <div className="film-card__desc">
-        <h2 className="film-card__title">{film.title}</h2>
+        <h2 className="film-card__title">{film.name}</h2>
         <p className="film-card__meta">
           <span className="film-card__genre">{film.genre}</span>
-          <span className="film-card__year">{film.year}</span>
+          <span className="film-card__year">{film.released}</span>
         </p>
 
         <div className="film-card__buttons">

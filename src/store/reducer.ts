@@ -1,8 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, getFilmsByGenre, loadFilms, setError, setLoadingStatus, showMoreFilms } from './action.ts';
-import { catalogFilmCards } from '../mocks/films.ts';
-import { GENRE_ALL_GENRES } from '../const/const.ts';
-import { FilmsPreviewData } from '../types/types.ts';
+import { changeGenre, getFilmsByGenre, loadFilms, requireAuthorization, setError, setLoadingStatus, setUserData, showMoreFilms } from './action.ts';
+import { AuthStatus, GENRE_ALL_GENRES } from '../const/const.ts';
+import { FilmsPreviewData, User } from '../types/types.ts';
 
 const DEFAULT_VIEWE_FILMS = 8;
 
@@ -11,22 +10,27 @@ type InitialState = {
   counter: number;
   genre: string;
   currentFilms: FilmsPreviewData;
-  // sortedFilms: FilmsPreviewData;
-  // auth: AuthStatus;
   currentFilmsLength: number ;
   isFilmsDataLoading: boolean;
   error: string | null;
+  authStatus: AuthStatus;
+  user: User;
 }
 
 const initialState: InitialState = {
   films: [],
   counter: DEFAULT_VIEWE_FILMS,
   genre: GENRE_ALL_GENRES,
-  // currentFilms: catalogFilmCards.slice(0,DEFAULT_VIEWE_FILMS),
   currentFilms: [],
   currentFilmsLength: 0,
   isFilmsDataLoading: false,
   error: null,
+  authStatus: AuthStatus.Unknown,
+  user: {
+    name: '',
+    avatarUrl: '',
+    email: '',
+  },
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -38,7 +42,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(getFilmsByGenre, (state, action) => {
       const {genre} = action.payload;
       state.counter = DEFAULT_VIEWE_FILMS;
-      state.currentFilmsLength = catalogFilmCards.filter((item) => genre === GENRE_ALL_GENRES ? item : item.genre === genre).length;
+      state.currentFilmsLength = state.films.filter((item) => genre === GENRE_ALL_GENRES ? item : item.genre === genre).length;
       state.currentFilms =
       state.films
         .filter((item) => genre === GENRE_ALL_GENRES ? item : item.genre === genre).filter((_, index) => index < state.counter);
@@ -61,6 +65,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authStatus = action.payload;
+    })
+    .addCase(setUserData, (state, action) => {
+      state.user = action.payload;
     });
 });
 
