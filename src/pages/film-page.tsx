@@ -1,5 +1,5 @@
 import { Tabs } from '../components/tabs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CardList } from '../card-list';
 import { Details } from '../components/details-block';
 import { Reviews } from '../components/reviews-block';
@@ -10,16 +10,23 @@ import { FilmPreviewData } from '../types/types';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import { useAppSelector } from '../hooks/useAppSelector';
-import { AppRoute } from '../const/const';
+import { AppRoute, AuthStatus } from '../const/const';
+import { FilmData, FilmPreview } from '../types/film-data';
+import api from '../api/api';
+import MyListButton from '../components/my-list-button';
+import PlayLink from '../components/play-link';
+import { getRatingDescription } from '../utils/film';
 
 
 const FilmPage = () => {
-  const params = useParams();
-  const filmsData = useAppSelector((state) => state.currentFilms);
-  const film = filmsData.find((item) => item.id === params.id) as FilmPreviewData;
-
+  const {id} = useParams();
+  // const filmsData = useAppSelector((state) => state.currentFilms);
+  // const film = filmsData.find((item) => item.id === params.id) as FilmPreviewData;
+  const authStatus = useAppSelector((state) => state.authStatus);
+  const [film, setFilm] = useState<FilmData | null>(null);
+  const [favoriteList, setFavoriteList] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
-  const moreFilms = filmsData.slice(0,4);
+  // const moreFilms = filmsData.slice(0,4);
   // const getContentByType = () => {
   //   switch (activeTab) {
   //     case 1: return <Details {...props.tabData.details}/>;
@@ -27,12 +34,27 @@ const FilmPage = () => {
   //     default: return <Overview {...props.tabData.overview}/>;
   //   }
   // };
+
+  useEffect(() => {
+    if(id) {
+      const data = api.get(`films/${id}`);
+      data.then((res) => setFilm(res.data as FilmData));
+    }
+    if(authStatus === AuthStatus.Auth) {
+      const data = api.get<FilmPreview[]>('favorite');
+      data.then((res) => setFavoriteList(res.data.length));
+    }
+  }, []);
+
+  if(!film) {
+    return 'loading';
+  }
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{ backgroundColor: film.backgroundColor }}>
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={film.backgroundImage} alt={film.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -44,24 +66,13 @@ const FilmPage = () => {
               <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.id}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
-                <Link to={AppRoute.AddReview.replace(':id', film.id)} className="btn film-card__button">Add review</Link>
+                <PlayLink id={id as string}/>
+                <MyListButton isFavorite={film.isFavorite} listLength={favoriteList}/>
+                {authStatus === AuthStatus.Auth && <Link to={AppRoute.AddReview.replace(':id', film.id)} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>
@@ -70,7 +81,7 @@ const FilmPage = () => {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={film.posterImage} alt={film.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -78,22 +89,21 @@ const FilmPage = () => {
               {/* { getContentByType() } */}
 
               <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
+                <div className="film-rating__score">{film.rating}</div>
                 <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
+                  <span className="film-rating__level">{getRatingDescription(film.rating)}</span>
+                  <span className="film-rating__count">{film.scoreCount}</span>
                 </p>
               </div>
 
-              <div className="film-card__text">
-                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave is friend and protege.</p>
+              <p>
+                {film.description}
+              </p>
+              <p className="film-card__director"><strong>Director: {film.director}</strong></p>
 
-                <p>Gustave prides himself on providing first-class service to the hotel is guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave is lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-
-                <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
-              </div>
+              <p className="film-card__starring">
+                <strong>Starring: {film.starring?.join(', ')}</strong>
+              </p>
             </div>
           </div>
         </div>
@@ -103,7 +113,7 @@ const FilmPage = () => {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <CardList films={moreFilms}/>
+            {/* <CardList films={moreFilms}/> */}
           </div>
         </section>
 
