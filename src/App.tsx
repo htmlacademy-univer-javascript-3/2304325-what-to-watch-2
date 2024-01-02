@@ -1,54 +1,58 @@
 import MainPage from './pages/main-page';
 import {
-  BrowserRouter,
   Routes,
   Route,
 } from 'react-router-dom';
-import SignInPAge from './pages/SignInPage';
+import SignInPage from './pages/sign-in-page';
 import MyListPage from './pages/my-list-page';
 import FilmPage from './pages/film-page';
 import AddReviewPage from './pages/add-review-page';
-import PlayerPage from './pages/player-page';
+import PlayerPage from './pages/player-page/player-page';
 import NotFoundPage from './pages/not-found-page';
 import PrivateRoute from './components/private-route';
-import { CommonProps } from './types/types';
 import { AppRoute } from './const/const';
+import browserHistory from './utils/browser-history';
+import HistoryRouter from './components/history-router';
+import { useAppSelector } from './hooks/useAppSelector';
 
+const App = () => {
+  const authStatus = useAppSelector((state) => state.authStatus);
 
-const App = (props : CommonProps) =>(
-  <BrowserRouter>
-    <Routes>
-      <Route
-        path={AppRoute.Main}
-        element={<MainPage {...props}/>}
-      />
-      <Route
-        path={AppRoute.SignIn}
-        element={<SignInPAge/>}
-      />
-      <Route path={AppRoute.MyList} element={
-        <PrivateRoute>
-          <MyListPage/>
-        </PrivateRoute>
-      }
-      />
-      <Route
-        path={AppRoute.Film}
-        element={<FilmPage {...props.filmCardData} tabData={props.tabData} />}
-      />
-      <Route
-        path={AppRoute.AddReview}
-        element={<AddReviewPage {...props.filmCardData}/>}
-      />
-      <Route
-        path={AppRoute.Player}
-        element={<PlayerPage {...props.playerData}/>}
-      />
-      <Route
-        path='*'
-        element={<NotFoundPage/>}
-      />
-    </Routes>
-  </BrowserRouter>
-);
+  return (
+    <HistoryRouter history={browserHistory}>
+      <Routes>
+        <Route
+          path={AppRoute.Main}
+          element={<MainPage />}
+        />
+        <Route
+          path={AppRoute.SignIn}
+          element={<SignInPage/>}
+        />
+        <Route path={AppRoute.MyList} element={
+          <PrivateRoute authStatus={authStatus}>
+            <MyListPage/>
+          </PrivateRoute>
+        }
+        />
+        <Route
+          path={AppRoute.Film}
+          element={<FilmPage />}
+        />
+        <Route
+          path={AppRoute.AddReview}
+          element={<AddReviewPage />}
+        />
+        <Route
+          path={AppRoute.Player}
+          element={<PlayerPage />}
+        />
+        <Route
+          path='*'
+          element={<NotFoundPage/>}
+        />
+      </Routes>
+    </HistoryRouter>
+  );
+};
 export default App;

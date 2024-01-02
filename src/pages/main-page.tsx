@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { CardList } from '../card-list';
 import FilmPreview from '../components/film-preview';
 import Footer from '../components/footer';
@@ -6,18 +7,25 @@ import Header from '../components/header';
 import ShowMore from '../components/show-more/show-more';
 import { HeaderStyleType } from '../const/const';
 import { useAppSelector } from '../hooks/useAppSelector';
-import { FilmCard } from '../types/types';
+import api from '../api/api';
+import { FilmData } from '../types/film-data';
 
-type Props = {
-  // eslint-disable-next-line react/no-unused-prop-types
-  filmCardData: FilmCard;
-  // catalogFilmCards: FilmCard[];
-};
 
-const MainPage = ({filmCardData} : Props) => {
+const MainPage = () => {
   const counter = useAppSelector((state) => state.counter);
   const allFilms = useAppSelector((state) => state.currentFilmsLength);
   const currentFilms = useAppSelector((state) => state.currentFilms);
+  const [film, setFilm] = useState<FilmData | null>(null);
+
+  const getPreviewFilm = async () => {
+    const data = await api.get('promo');
+    return data.data as FilmData;
+
+  };
+
+  useEffect(() => {
+    getPreviewFilm().then((res) => setFilm(res));
+  }, []);
 
 
   return (
@@ -29,9 +37,9 @@ const MainPage = ({filmCardData} : Props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header isLoggedIn headerStyleType={HeaderStyleType.Film}/>
+        <Header headerStyleType={HeaderStyleType.Film}/>
 
-        <FilmPreview film={filmCardData}/>
+        {film && <FilmPreview film={film}/>}
       </section>
       <div className="page-content">
         <section className="catalog">

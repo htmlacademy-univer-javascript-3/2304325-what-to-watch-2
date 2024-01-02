@@ -5,27 +5,28 @@ import { Details } from '../components/details-block';
 import { Reviews } from '../components/reviews-block';
 import { Overview } from '../components/overview-block';
 import { TabProps } from '../types/tabs';
-import { Link } from 'react-router-dom';
-import { FilmCard } from '../types/types';
+import { Link, useParams } from 'react-router-dom';
+import { FilmPreviewData } from '../types/types';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import { useAppSelector } from '../hooks/useAppSelector';
+import { AppRoute } from '../const/const';
 
 
-const FilmPage = (props: FilmCard & {tabData: TabProps}) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const { id } = useParams();
-  const films = useAppSelector((state) => state.currentFilms);
+const FilmPage = () => {
+  const params = useParams();
+  const filmsData = useAppSelector((state) => state.currentFilms);
+  const film = filmsData.find((item) => item.id === params.id) as FilmPreviewData;
 
   const [activeTab, setActiveTab] = useState(0);
-  const moreFilms = films.filter((film)=> film.genre === props.genre).slice(0,4);
-  const getContentByType = () => {
-    switch (activeTab) {
-      case 1: return <Details {...props.tabData.details}/>;
-      case 2: return <Reviews reviews={props.tabData.reviews}/>;
-      default: return <Overview {...props.tabData.overview}/>;
-    }
-  };
+  const moreFilms = filmsData.slice(0,4);
+  // const getContentByType = () => {
+  //   switch (activeTab) {
+  //     case 1: return <Details {...props.tabData.details}/>;
+  //     case 2: return <Reviews reviews={props.tabData.reviews}/>;
+  //     default: return <Overview {...props.tabData.overview}/>;
+  //   }
+  // };
   return (
     <>
       <section className="film-card film-card--full">
@@ -36,14 +37,14 @@ const FilmPage = (props: FilmCard & {tabData: TabProps}) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header isLoggedIn/>
+          <Header />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.title}</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{props.genre}</span>
-                <span className="film-card__year">{props.year}</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.id}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -60,7 +61,7 @@ const FilmPage = (props: FilmCard & {tabData: TabProps}) => {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to='review' className="btn film-card__button">Add review</Link>
+                <Link to={AppRoute.AddReview.replace(':id', film.id)} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -74,7 +75,7 @@ const FilmPage = (props: FilmCard & {tabData: TabProps}) => {
 
             <div className="film-card__desc">
               <Tabs activeTab={activeTab} setActiveTab={setActiveTab}/>
-              { getContentByType() }
+              {/* { getContentByType() } */}
 
               <div className="film-rating">
                 <div className="film-rating__score">8,9</div>

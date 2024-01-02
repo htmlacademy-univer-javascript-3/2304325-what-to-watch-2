@@ -1,4 +1,5 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { getToken } from './token';
 
 
 const URL_API = 'https://13.design.pages.academy/wtw/';
@@ -16,5 +17,15 @@ const api = axios.create({
 });
 
 api.interceptors.response.use((response) => response, async (error: AxiosError<ErrorMessage>) => Promise.reject(error));
+api.interceptors.request.use((config: AxiosRequestConfig) => {
+  const token = getToken();
+
+  if (token && config.headers) {
+    config.headers['x-token'] = token;
+  }
+
+  return config;
+});
+
 
 export default api;

@@ -19,6 +19,12 @@ export enum FilmRoute {
   Reviews = 'reviews',
 }
 
+export enum APIRoute {
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export enum HeaderStyleType {
   Film = 'film-card__head',
   User = 'user-page__head',
@@ -26,3 +32,5 @@ export enum HeaderStyleType {
 }
 
 export const GENRE_ALL_GENRES = 'All genres';
+
+export const TIMEOUT = 5000;
