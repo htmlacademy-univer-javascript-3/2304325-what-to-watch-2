@@ -8,7 +8,7 @@ import Footer from '../components/footer';
 import Header from '../components/header';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { AppRoute, AuthStatus } from '../const/const';
-import { FilmData, FilmPreview } from '../types/film-data';
+import { FilmData } from '../types/film-data';
 import api from '../api/api';
 import MyListButton from '../components/my-list-button';
 import PlayLink from '../components/play-link';
@@ -20,7 +20,6 @@ const FilmPage = () => {
   const {id} = useParams();
   const authStatus = useAppSelector((state) => state.authStatus);
   const [film, setFilm] = useState<FilmData | null>(null);
-  const [favoriteList, setFavoriteList] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
   const [similarFilms, setSimilarFilms] = useState<FilmsPreviewData | null>(null);
   const getContentByType = () => {
@@ -37,10 +36,6 @@ const FilmPage = () => {
       data.then((res) => setFilm(res.data as FilmData));
       const similarData = api.get(`films/${id}/similar`);
       similarData.then((res) => setSimilarFilms(res.data as FilmsPreviewData));
-    }
-    if(authStatus === AuthStatus.Auth) {
-      const data = api.get<FilmPreview[]>('favorite');
-      data.then((res) => setFavoriteList(res.data.length));
     }
   }, []);
 
@@ -69,7 +64,7 @@ const FilmPage = () => {
 
               <div className="film-card__buttons">
                 <PlayLink id={id as string}/>
-                <MyListButton isFavorite={film.isFavorite} listLength={favoriteList}/>
+                <MyListButton isFavorite={film.isFavorite}/>
                 {authStatus === AuthStatus.Auth && <Link to={AppRoute.AddReview.replace(':id', film.id)} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
