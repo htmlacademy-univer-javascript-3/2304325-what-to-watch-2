@@ -2,11 +2,8 @@ import { Tabs } from '../components/tabs';
 import { useEffect, useState } from 'react';
 import { CardList } from '../card-list';
 import { Details } from '../components/details-block';
-import { Reviews } from '../components/reviews-block';
 import { Overview } from '../components/overview-block';
-import { TabProps } from '../types/tabs';
 import { Link, useParams } from 'react-router-dom';
-import { FilmPreviewData } from '../types/types';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import { useAppSelector } from '../hooks/useAppSelector';
@@ -15,30 +12,31 @@ import { FilmData, FilmPreview } from '../types/film-data';
 import api from '../api/api';
 import MyListButton from '../components/my-list-button';
 import PlayLink from '../components/play-link';
-import { getRatingDescription } from '../utils/film';
+import Reviews from '../components/reviews-block';
+import { FilmsPreviewData } from '../types/types';
 
 
 const FilmPage = () => {
   const {id} = useParams();
-  // const filmsData = useAppSelector((state) => state.currentFilms);
-  // const film = filmsData.find((item) => item.id === params.id) as FilmPreviewData;
   const authStatus = useAppSelector((state) => state.authStatus);
   const [film, setFilm] = useState<FilmData | null>(null);
   const [favoriteList, setFavoriteList] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
-  // const moreFilms = filmsData.slice(0,4);
-  // const getContentByType = () => {
-  //   switch (activeTab) {
-  //     case 1: return <Details {...props.tabData.details}/>;
-  //     case 2: return <Reviews reviews={props.tabData.reviews}/>;
-  //     default: return <Overview {...props.tabData.overview}/>;
-  //   }
-  // };
+  const [similarFilms, setSimilarFilms] = useState<FilmsPreviewData | null>(null);
+  const getContentByType = () => {
+    switch (activeTab) {
+      case 1: return <Details film={film}/>;
+      case 2: return <Reviews />;
+      default: return <Overview film={film}/>;
+    }
+  };
 
   useEffect(() => {
     if(id) {
       const data = api.get(`films/${id}`);
       data.then((res) => setFilm(res.data as FilmData));
+      const similarData = api.get(`films/${id}/similar`);
+      similarData.then((res) => setSimilarFilms(res.data as FilmsPreviewData));
     }
     if(authStatus === AuthStatus.Auth) {
       const data = api.get<FilmPreview[]>('favorite');
@@ -86,24 +84,7 @@ const FilmPage = () => {
 
             <div className="film-card__desc">
               <Tabs activeTab={activeTab} setActiveTab={setActiveTab}/>
-              {/* { getContentByType() } */}
-
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{getRatingDescription(film.rating)}</span>
-                  <span className="film-rating__count">{film.scoreCount}</span>
-                </p>
-              </div>
-
-              <p>
-                {film.description}
-              </p>
-              <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
-              <p className="film-card__starring">
-                <strong>Starring: {film.starring?.join(', ')}</strong>
-              </p>
+              { getContentByType() }
             </div>
           </div>
         </div>
@@ -113,7 +94,7 @@ const FilmPage = () => {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            {/* <CardList films={moreFilms}/> */}
+            <CardList films={similarFilms}/>
           </div>
         </section>
 
