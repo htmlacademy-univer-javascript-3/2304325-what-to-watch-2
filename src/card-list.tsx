@@ -5,7 +5,7 @@ import { useAppSelector } from './hooks/useAppSelector';
 import Spinner from './components/spinner';
 
 type Props = {
-  films: FilmsPreviewData;
+  films: FilmsPreviewData | null;
 }
 
 export const CardList = ({films} : Props) => {
@@ -19,7 +19,7 @@ export const CardList = ({films} : Props) => {
   }
   return (
     <div className="catalog__films-list">
-      {films.map((film) =>
+      {films?.map((film) =>
         (
           <Card
             isActive={activeFilm?.id === film.id}

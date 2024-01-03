@@ -1,24 +1,30 @@
-import {OverviewProps} from '../types/tabs';
+import { FilmData } from '../types/film-data';
+import { getRatingDescription } from '../utils/film';
 
-export const Overview = (props: OverviewProps) => (
-  <>
-    <div className="film-rating">
-      <div className="film-rating__score">{props.rating}</div>
-      <p className="film-rating__meta">
-        <span className="film-rating__level">{props.ratingDescription}</span>
-        <span className="film-rating__count">{props.numberOfVotes} ratings</span>
+export const Overview = ({film}: {film?: FilmData | null}) => {
+  if(!film) {
+    return null;
+  }
+
+  return(
+    <>
+      <div className="film-rating">
+        <div className="film-rating__score">{film.rating}</div>
+        <p className="film-rating__meta">
+          <span className="film-rating__level">{getRatingDescription(film.rating)}</span>
+          <span className="film-rating__count">{film.scoreCount}</span>
+        </p>
+      </div>
+
+      <p>
+        {film.description}
       </p>
-    </div>
-
-    <div className="film-card__text">
-      <p>{props.description}</p>
-
-      <p className="film-card__director"><strong>Director: {props.director}</strong></p>
+      <p className="film-card__director"><strong>Director: {film.director}</strong></p>
 
       <p className="film-card__starring">
-        <strong>Starring: {props.starring}
-        </strong>
+        <strong>Starring: {film.starring?.join(', ')}</strong>
       </p>
-    </div>
-  </>
-);
+
+    </>
+  );
+};
