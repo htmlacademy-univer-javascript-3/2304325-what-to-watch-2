@@ -17,3 +17,6 @@ export const requireAuthorization = createAction<AuthStatus>('user/requireAuthor
 export const setUserData = createAction<User>('user/setUserData');
 
 export const redirectToRoute = createAction<AppRoute>('game/redirectToRoute');
+
+export const getFavoriteFilms = createAction<FilmsPreviewData>('films/getFavoriteFilms');
+

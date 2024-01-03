@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, getFilmsByGenre, loadFilms, requireAuthorization, setError, setLoadingStatus, setUserData, showMoreFilms } from './action.ts';
+import { changeGenre, getFavoriteFilms, getFilmsByGenre, loadFilms, requireAuthorization, setError, setLoadingStatus, setUserData, showMoreFilms } from './action.ts';
 import { AuthStatus, GENRE_ALL_GENRES } from '../const/const.ts';
 import { FilmsPreviewData, User } from '../types/types.ts';
 
@@ -15,6 +15,7 @@ type InitialState = {
   error: string | null;
   authStatus: AuthStatus;
   user: User;
+  favoriteFilms: FilmsPreviewData | null;
 }
 
 const initialState: InitialState = {
@@ -31,6 +32,7 @@ const initialState: InitialState = {
     avatarUrl: '',
     email: '',
   },
+  favoriteFilms: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -71,6 +73,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setUserData, (state, action) => {
       state.user = action.payload;
+    })
+    .addCase(getFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
     });
 });
 

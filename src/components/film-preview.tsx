@@ -1,5 +1,6 @@
 import { FilmData } from '../types/film-data';
-import MyListBtn from './my-list-btn';
+import MyListButton from './my-list-button';
+import PlayLink from './play-link';
 
 
 type Props = {
@@ -26,27 +27,8 @@ const FilmPreview = ({film}: Props): JSX.Element => (
         </p>
 
         <div className="film-card__buttons">
-          <button
-            className="btn btn--play film-card__button"
-            type="button"
-          >
-            <svg
-              viewBox="0 0 19 19"
-              width="19"
-              height="19"
-            >
-              <use xlinkHref="#play-s"></use>
-            </svg>
-            <span>Play</span>
-          </button>
-          <button
-            className="btn btn--list film-card__button"
-            type="button"
-          >
-            <MyListBtn isFavorite/>
-            <span>My list</span>
-            <span className="film-card__count">9</span>
-          </button>
+          <PlayLink id={film.id}/>
+          <MyListButton isFavorite={film.isFavorite} idFilm={film.id}/>
         </div>
       </div>
     </div>

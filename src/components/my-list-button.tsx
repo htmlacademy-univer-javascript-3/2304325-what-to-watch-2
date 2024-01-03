@@ -7,19 +7,20 @@ import api from '../api/api';
 import { useState } from 'react';
 
 interface Props {
-  listLength?: number;
   isFavorite: boolean;
+  idFilm?: string;
 }
 
-export default function MyListButton({ listLength, isFavorite }: Props) {
+export default function MyListButton({ isFavorite, idFilm }: Props) {
   const {id} = useParams();
 
   const authStatus = useAppSelector((state) => state.authStatus);
+  const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
   const navigate = useNavigate();
   const [favorite, setFavorite] = useState(isFavorite);
 
   function handleStatusToggle() {
-    const data = api.post<FilmDetails>(`/favorite/${id as string}/${favorite ? 0 : 1}`);
+    const data = api.post<FilmDetails>(`/favorite/${id ? id : idFilm as string}/${favorite ? 0 : 1}`);
     data.then((res) => setFavorite(res.data.isFavorite));
   }
 
@@ -33,7 +34,7 @@ export default function MyListButton({ listLength, isFavorite }: Props) {
 
   return (
     <button className="btn btn--list film-card__button" type="button" onClick={handleClick}>
-      {isFavorite ? (
+      {favorite ? (
         <svg viewBox="0 0 18 14" width="18" height="14">
           <use xlinkHref="#in-list"></use>
         </svg>
@@ -43,7 +44,7 @@ export default function MyListButton({ listLength, isFavorite }: Props) {
         </svg>
       )}
       <span>My list</span>
-      {authStatus === AuthStatus.Auth && <span className="film-card__count">{Number(listLength)}</span>}
+      {authStatus === AuthStatus.Auth && <span className="film-card__count">{favoriteFilms?.length}</span>}
     </button>
   );
 }

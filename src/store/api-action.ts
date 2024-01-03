@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
-import { loadFilms, redirectToRoute, requireAuthorization, setError, setLoadingStatus, setUserData } from './action';
+import { getFavoriteFilms, loadFilms, redirectToRoute, requireAuthorization, setError, setLoadingStatus, setUserData } from './action';
 import { AuthData, FilmsPreviewData, UserData } from '../types/types';
 import { APIRoute, AppRoute, AuthStatus, TIMEOUT } from '../const/const';
 import { store } from '.';
@@ -34,6 +34,8 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
       dispatch(setUserData({
         email, avatarUrl, name
       }));
+      const {data} = await api.get<FilmsPreviewData >(APIRoute.Favorite);
+      dispatch(getFavoriteFilms(data));
     } catch {
       dispatch(requireAuthorization(AuthStatus.NoAuth));
     }
