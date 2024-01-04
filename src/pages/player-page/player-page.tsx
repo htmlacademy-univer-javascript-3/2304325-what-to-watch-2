@@ -38,7 +38,7 @@ const PlayerPage = () => {
       const data = api.get(`films/${id}`);
       data.then((res) => setFilm(res.data as FilmData));
     }
-  } , []);
+  } , [id]);
 
   function handlePlay() {
     playerRef.current?.play();

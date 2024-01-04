@@ -3,8 +3,8 @@ import { GENRE_ALL_GENRES } from '../../const/const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppSelector.ts';
 import { changeGenre, getFilmsByGenre } from '../../store/action.ts';
 
-
 const GENRE_ITEM_ACTIVE_STYLE = 'catalog__genres-item--active';
+
 const GenreList = () => {
   const dispatch = useAppDispatch();
   const activeGenre = useAppSelector((state) => state.genre);
