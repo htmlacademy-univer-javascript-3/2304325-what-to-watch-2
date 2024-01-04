@@ -14,6 +14,7 @@ import MyListButton from '../components/my-list-button';
 import PlayLink from '../components/play-link';
 import Reviews from '../components/reviews-block';
 import { FilmsPreviewData } from '../types/types';
+import Spinner from '../components/spinner';
 
 
 const FilmPage = () => {
@@ -37,10 +38,10 @@ const FilmPage = () => {
       const similarData = api.get(`films/${id}/similar`);
       similarData.then((res) => setSimilarFilms(res.data as FilmsPreviewData));
     }
-  }, []);
+  }, [id]);
 
   if(!film) {
-    return 'loading';
+    return <Spinner/>;
   }
   return (
     <>

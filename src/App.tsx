@@ -13,46 +13,45 @@ import PrivateRoute from './components/private-route';
 import { AppRoute } from './const/const';
 import browserHistory from './utils/browser-history';
 import HistoryRouter from './components/history-router';
-import { useAppSelector } from './hooks/useAppSelector';
 
-const App = () => {
-  const authStatus = useAppSelector((state) => state.authStatus);
-
-  return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route
-          path={AppRoute.Main}
-          element={<MainPage />}
-        />
-        <Route
-          path={AppRoute.SignIn}
-          element={<SignInPage/>}
-        />
-        <Route path={AppRoute.MyList} element={
-          <PrivateRoute authStatus={authStatus}>
-            <MyListPage/>
+const App = () => (
+  <HistoryRouter history={browserHistory}>
+    <Routes>
+      <Route
+        path={AppRoute.Main}
+        element={<MainPage />}
+      />
+      <Route
+        path={AppRoute.SignIn}
+        element={<SignInPage/>}
+      />
+      <Route path={AppRoute.MyList} element={
+        <PrivateRoute>
+          <MyListPage/>
+        </PrivateRoute>
+      }
+      />
+      <Route
+        path={AppRoute.Film}
+        element={<FilmPage />}
+      />
+      <Route
+        path={AppRoute.AddReview}
+        element={
+          <PrivateRoute>
+            <AddReviewPage />
           </PrivateRoute>
         }
-        />
-        <Route
-          path={AppRoute.Film}
-          element={<FilmPage />}
-        />
-        <Route
-          path={AppRoute.AddReview}
-          element={<AddReviewPage />}
-        />
-        <Route
-          path={AppRoute.Player}
-          element={<PlayerPage />}
-        />
-        <Route
-          path='*'
-          element={<NotFoundPage/>}
-        />
-      </Routes>
-    </HistoryRouter>
-  );
-};
+      />
+      <Route
+        path={AppRoute.Player}
+        element={<PlayerPage />}
+      />
+      <Route
+        path='*'
+        element={<NotFoundPage/>}
+      />
+    </Routes>
+  </HistoryRouter>
+);
 export default App;

@@ -6,15 +6,17 @@ import GenreList from '../components/genre-list/genre-list';
 import Header from '../components/header';
 import ShowMore from '../components/show-more/show-more';
 import { HeaderStyleType } from '../const/const';
-import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppDispatch, useAppSelector } from '../hooks/useAppSelector';
 import api from '../api/api';
 import { FilmData } from '../types/film-data';
+import { resetCurrentFilms } from '../store/action';
 
 
 const MainPage = () => {
   const counter = useAppSelector((state) => state.counter);
   const allFilms = useAppSelector((state) => state.currentFilmsLength);
   const currentFilms = useAppSelector((state) => state.currentFilms);
+  const dispatch = useAppDispatch();
   const [film, setFilm] = useState<FilmData | null>(null);
 
   const getPreviewFilm = async () => {
@@ -25,7 +27,8 @@ const MainPage = () => {
 
   useEffect(() => {
     getPreviewFilm().then((res) => setFilm(res));
-  }, []);
+    dispatch(resetCurrentFilms());
+  }, [dispatch]);
 
 
   return (

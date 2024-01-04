@@ -12,7 +12,7 @@ export const Overview = ({film}: {film?: FilmData | null}) => {
         <div className="film-rating__score">{film.rating}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">{getRatingDescription(film.rating)}</span>
-          <span className="film-rating__count">{film.scoreCount}</span>
+          <span className="film-rating__count">{film.scoresCount} ratings</span>
         </p>
       </div>
 
