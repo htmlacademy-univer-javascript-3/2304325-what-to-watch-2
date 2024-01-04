@@ -13,14 +13,17 @@ const Card = (props : Props) => (
     onMouseOver={() => props.onMouseOver(props)}
     onMouseOut={() => props.onMouseOut(props)}
   >
-    <div className="small-film-card__image">
-      <Preview
-        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-        poster={props.previewImage}
-        isActive={props.isActive}
-        name={props.name}
-      />
-    </div>
+    <Link to={`/films/${props.id}`}>
+      <div className="small-film-card__image">
+        <Preview
+          src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+          poster={props.previewImage}
+          isActive={props.isActive}
+          name={props.name}
+        />
+      </div>
+    </Link>
+
     <h3 className="small-film-card__title">
       <Link className="small-film-card__link" to={`/films/${props.id}`}>{props.name}</Link>
     </h3>

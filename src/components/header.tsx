@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthStatus, HeaderStyleType } from '../const/const';
 import { useAppDispatch, useAppSelector } from '../hooks/useAppSelector';
 import { logoutAction } from '../store/api-action';
@@ -12,6 +12,8 @@ const Header = ({headerStyleType, children}: HeaderProps):JSX.Element => {
   const {avatarUrl} = useAppSelector((state) => state.user);
   const authorizationStatus = useAppSelector((state) => state.authStatus);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   return (
     <header className={`page-header ${headerStyleType || ''}`}>
       <div className="logo">
@@ -30,7 +32,7 @@ const Header = ({headerStyleType, children}: HeaderProps):JSX.Element => {
           (
             <ul className="user-block">
               <li className="user-block__item">
-                <div className="user-block__avatar">
+                <div className="user-block__avatar" onClick={() => navigate(AppRoute.MyList)}>
                   <img
                     src={avatarUrl}
                     alt="User avatar"

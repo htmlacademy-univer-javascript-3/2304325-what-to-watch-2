@@ -15,7 +15,7 @@ export type FilmData = {
   videoLink: string;
   description: string;
   rating: number;
-  scoreCount: number;
+  scoresCount: number;
   director: string;
   starring: string[];
   runTime: number;

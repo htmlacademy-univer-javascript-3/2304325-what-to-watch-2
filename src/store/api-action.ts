@@ -6,6 +6,8 @@ import { AuthData, FilmsPreviewData, UserData } from '../types/types';
 import { APIRoute, AppRoute, AuthStatus, TIMEOUT } from '../const/const';
 import { store } from '.';
 import { dropToken, saveToken } from '../api/token';
+import { ReviewValues } from '../types/review';
+import { AsyncActionConfig } from '../types/state copy';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -86,4 +88,10 @@ export const clearErrorAction = createAsyncThunk(
       TIMEOUT
     );
   },
+);
+
+export const addReview = createAsyncThunk<void, ReviewValues & { filmId: string }, AsyncActionConfig>(
+  'review/addReview',
+  async ({ filmId, ...requestData }: ReviewValues & { filmId: string }, { extra: api }) =>
+    await api.post(`/comments/${filmId}`, requestData)
 );

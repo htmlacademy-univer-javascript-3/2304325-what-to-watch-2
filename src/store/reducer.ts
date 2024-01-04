@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, getFavoriteFilms, getFilmsByGenre, loadFilms, requireAuthorization, setError, setLoadingStatus, setUserData, showMoreFilms } from './action.ts';
+import { changeGenre, getFavoriteFilms, getFilmsByGenre, loadFilms, requireAuthorization, resetCurrentFilms, setError, setLoadingStatus, setUserData, showMoreFilms } from './action.ts';
 import { AuthStatus, GENRE_ALL_GENRES } from '../const/const.ts';
 import { FilmsPreviewData, User } from '../types/types.ts';
 
@@ -76,6 +76,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getFavoriteFilms, (state, action) => {
       state.favoriteFilms = action.payload;
+    })
+    .addCase(resetCurrentFilms, (state) => {
+      state.counter = DEFAULT_VIEWE_FILMS;
+      state.currentFilms =
+      state.films
+        .filter((item) => state.genre === GENRE_ALL_GENRES ? item : item.genre === state.genre).filter((_, index) => index < state.counter);
     });
 });
 

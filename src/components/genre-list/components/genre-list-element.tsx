@@ -15,7 +15,7 @@ export const GenreListElement = ({genre, className, clickHandler}: GenreListElem
   );
   return (
     <li className={liClassNames} onClick={() => clickHandler(genre)}>
-      <Link to={`?genere=${genre}`} className="catalog__genres-link">{genre}</Link>
+      <Link to={''} className="catalog__genres-link">{genre}</Link>
     </li>
   );
 };

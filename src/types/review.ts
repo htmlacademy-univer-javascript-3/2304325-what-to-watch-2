@@ -13,7 +13,7 @@ export interface Review extends ReviewValues {
   user: string;
 }
 
-export enum ReviewFormLimitations {
+export enum ReviewFormParams {
   CommentMinLength = 50,
   CommentMaxLength = 400,
   MinRating = 1,

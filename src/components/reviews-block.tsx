@@ -13,7 +13,7 @@ export default function Reviews() {
       const data = api.get(`comments/${id}`);
       data.then((res) => setComments(res.data as Review[]));
     }
-  }, []);
+  }, [id]);
 
   return (
     <div className="film-card__reviews film-card__row">
