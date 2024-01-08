@@ -7,6 +7,7 @@ export const changeGenre = createAction<{genre: string}>('genre/changeGenre');
 export const getFilmsByGenre = createAction<{genre: string}>('films/getFilmsByGenre');
 
 export const showMoreFilms = createAction('films/showMoreFilms');
+export const resetCurrentFilms = createAction('films/resetCurrentFilms');
 
 export const resetCurrentFilms = createAction('films/resetCurrentFilms');
 
