@@ -7,7 +7,6 @@ import { APIRoute, AppRoute, AuthStatus, TIMEOUT } from '../const/const';
 import { store } from '.';
 import { dropToken, saveToken } from '../api/token';
 import { ReviewValues } from '../types/review';
-import { AsyncActionConfig } from '../types/state copy';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -90,8 +89,11 @@ export const clearErrorAction = createAsyncThunk(
   },
 );
 
-export const addReview = createAsyncThunk<void, ReviewValues & { filmId: string }, AsyncActionConfig>(
+export const addReview = createAsyncThunk<void, ReviewValues & { filmId: string }, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
   'review/addReview',
-  async ({ filmId, ...requestData }: ReviewValues & { filmId: string }, { extra: api }) =>
-    await api.post(`/comments/${filmId}`, requestData)
+  async ({ filmId, ...requestData }: ReviewValues & { filmId: string }, { extra: api }) => await api.post(`/comments/${filmId}`, requestData)
 );

@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import { FilmPreviewData, FilmsPreviewData } from './types/types';
 import Card from './card-film';
-import { useAppSelector } from './hooks/useAppSelector';
+import { useAppSelector } from './hooks/use-app-selector';
 import Spinner from './components/spinner';
 
 type Props = {

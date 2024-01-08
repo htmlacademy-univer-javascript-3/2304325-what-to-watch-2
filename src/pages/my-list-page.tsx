@@ -2,7 +2,7 @@ import {CardList} from '../card-list';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import { HeaderStyleType } from '../const/const';
-import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppSelector } from '../hooks/use-app-selector';
 
 
 const MyListPage = ()=> {

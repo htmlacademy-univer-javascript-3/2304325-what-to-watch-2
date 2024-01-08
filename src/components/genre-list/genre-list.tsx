@@ -1,6 +1,6 @@
 import { GenreListElement } from './components/genre-list-element.tsx';
 import { GENRE_ALL_GENRES } from '../../const/const.ts';
-import { useAppDispatch, useAppSelector } from '../../hooks/useAppSelector.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-app-selector.ts';
 import { changeGenre, getFilmsByGenre } from '../../store/action.ts';
 
 const GENRE_ITEM_ACTIVE_STYLE = 'catalog__genres-item--active';

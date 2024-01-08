@@ -15,7 +15,7 @@ type InitialState = {
   error: string | null;
   authStatus: AuthStatus;
   user: User;
-  favoriteFilms: FilmsPreviewData | null;
+  favoriteFilms: FilmsPreviewData;
 }
 
 const initialState: InitialState = {
@@ -32,7 +32,7 @@ const initialState: InitialState = {
     avatarUrl: '',
     email: '',
   },
-  favoriteFilms: null,
+  favoriteFilms: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {

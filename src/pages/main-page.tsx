@@ -6,7 +6,7 @@ import GenreList from '../components/genre-list/genre-list';
 import Header from '../components/header';
 import ShowMore from '../components/show-more/show-more';
 import { HeaderStyleType } from '../const/const';
-import { useAppDispatch, useAppSelector } from '../hooks/useAppSelector';
+import { useAppDispatch, useAppSelector } from '../hooks/use-app-selector';
 import api from '../api/api';
 import { FilmData } from '../types/film-data';
 import { resetCurrentFilms } from '../store/action';

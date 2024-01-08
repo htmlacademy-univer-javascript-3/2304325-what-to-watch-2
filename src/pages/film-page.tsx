@@ -6,7 +6,7 @@ import { Overview } from '../components/overview-block';
 import { Link, useParams } from 'react-router-dom';
 import Footer from '../components/footer';
 import Header from '../components/header';
-import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppSelector } from '../hooks/use-app-selector';
 import { AppRoute, AuthStatus } from '../const/const';
 import { FilmData } from '../types/film-data';
 import api from '../api/api';
