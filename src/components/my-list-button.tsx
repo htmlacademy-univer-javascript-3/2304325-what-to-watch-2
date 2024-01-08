@@ -1,10 +1,10 @@
 
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppSelector } from '../hooks/use-app-selector';
 import { AppRoute, AuthStatus } from '../const/const';
 import { FilmDetails } from '../types/film-data';
 import api from '../api/api';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 interface Props {
   isFavorite: boolean;
@@ -16,6 +16,7 @@ export default function MyListButton({ isFavorite, idFilm }: Props) {
 
   const authStatus = useAppSelector((state) => state.authStatus);
   const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
+  const [favoriteFilmsLength, setFavoriteFilmsLength] = useState(0);
   const navigate = useNavigate();
   const [favorite, setFavorite] = useState(isFavorite);
 
@@ -24,9 +25,19 @@ export default function MyListButton({ isFavorite, idFilm }: Props) {
     data.then((res) => setFavorite(res.data.isFavorite));
   }
 
+  useLayoutEffect(() => {
+    setFavoriteFilmsLength(favoriteFilms.length);
+  }, [favoriteFilms]);
+
+
   function handleClick() {
     if (authStatus === AuthStatus.Auth) {
       handleStatusToggle();
+      if(favorite) {
+        setFavoriteFilmsLength((prev) => prev - 1);
+      } else {
+        setFavoriteFilmsLength((prev) => prev + 1);
+      }
     } else {
       navigate(AppRoute.SignIn);
     }
@@ -44,7 +55,7 @@ export default function MyListButton({ isFavorite, idFilm }: Props) {
         </svg>
       )}
       <span>My list</span>
-      {authStatus === AuthStatus.Auth && <span className="film-card__count">{favoriteFilms?.length}</span>}
+      {authStatus === AuthStatus.Auth && <span className="film-card__count">{favoriteFilmsLength}</span>}
     </button>
   );
 }

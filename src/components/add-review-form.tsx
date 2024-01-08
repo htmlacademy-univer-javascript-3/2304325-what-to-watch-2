@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReviewFormParams, ReviewFormValues } from '../types/review.ts';
-import { useAppDispatch } from '../hooks/useAppSelector.ts';
+import { useAppDispatch } from '../hooks/use-app-selector.ts';
 import { AppRoute } from '../const/const.ts';
 import { addReview } from '../store/api-action.ts';
 
@@ -29,8 +29,12 @@ export default function AddReviewForm() {
 
   function handleAddReview(data: ReviewFormValues) {
     setIsSubmitting(true);
-    dispatch(addReview({ rating: Number(data.rating), comment: data['review-text'], filmId: id })).unwrap()
-      .then(() => navigate(AppRoute.Film.replace(':id', id)))
+    dispatch(addReview({ rating: Number(data.rating), comment: data['review-text'], filmId: id }))
+      .then((res) => {
+        if(res.meta.requestStatus !== 'rejected') {
+          navigate(AppRoute.Film.replace(':id', id));
+        }
+      })
       .finally(() => setIsSubmitting(false));
   }
 

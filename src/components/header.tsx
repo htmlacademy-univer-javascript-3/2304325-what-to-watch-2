@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthStatus, HeaderStyleType } from '../const/const';
-import { useAppDispatch, useAppSelector } from '../hooks/useAppSelector';
+import { useAppDispatch, useAppSelector } from '../hooks/use-app-selector';
 import { logoutAction } from '../store/api-action';
 
 type HeaderProps = {

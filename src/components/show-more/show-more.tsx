@@ -1,4 +1,4 @@
-import { useAppDispatch } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/use-app-selector';
 import { showMoreFilms } from '../../store/action';
 
 const ShowMore = () => {

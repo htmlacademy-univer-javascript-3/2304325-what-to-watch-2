@@ -2,8 +2,11 @@ import { FormEvent, useState } from 'react';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import { HeaderStyleType } from '../const/const';
-import { useAppDispatch } from '../hooks/useAppSelector';
+import { useAppDispatch } from '../hooks/use-app-selector';
 import { loginAction } from '../store/api-action';
+
+const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
 
 const SignInPage = () => {
   const [login, setLogin] = useState('');
@@ -13,8 +16,7 @@ const SignInPage = () => {
   const dispatch = useAppDispatch();
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
-    if (login && password) {
+    if (emailPattern.test(login) && (/[a-z]/i.test(password) && /[0-9]/.test(password))) {
       dispatch(loginAction({
         login: login,
         password: password,

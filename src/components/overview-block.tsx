@@ -16,7 +16,7 @@ export const Overview = ({film}: {film?: FilmData | null}) => {
         </p>
       </div>
 
-      <p>
+      <p className='film-card__text'>
         {film.description}
       </p>
       <p className="film-card__director"><strong>Director: {film.director}</strong></p>

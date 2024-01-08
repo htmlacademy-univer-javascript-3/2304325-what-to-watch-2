@@ -4,6 +4,8 @@ export const Details = ({film}: {film?: FilmData | null}) => {
   if(!film) {
     return null;
   }
+  const hours = Math.floor(film.runTime / 60);
+  const minutes = film.runTime % 60;
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
@@ -20,7 +22,7 @@ export const Details = ({film}: {film?: FilmData | null}) => {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{film.runTime}</span>
+          <span className="film-card__details-value">{`${hours}h ${minutes}m`}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
